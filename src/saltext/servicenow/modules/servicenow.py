@@ -18,7 +18,6 @@ Module for execution of ServiceNow CI (configuration items)
           username: ''
           password: ''
 """
-
 import logging
 
 HAS_LIBS = False
@@ -137,7 +136,7 @@ def non_structured_query(table, query=None, **kwargs):
         # try and assemble a query by keyword
         query_parts = []
         for key, value in kwargs.items():
-            query_parts.append("{}={}".format(key, value))
+            query_parts.append(f"{key}={value}")
         query = "^".join(query_parts)
     query = str(query)
     response = client.get(query)

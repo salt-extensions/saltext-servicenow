@@ -1,6 +1,6 @@
 # servicenow
 
-Salt Extension for interacting with ServiceNow
+Salt Extension for interacting with Servicenow
 
 ## Quickstart
 

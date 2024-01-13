@@ -1,12 +1,10 @@
 """
     :codeauthor: Anthony Shaw <anthonyshaw@apache.org>
 """
+from unittest.mock import MagicMock
 
-
+import pytest
 import salt.modules.servicenow as servicenow
-from tests.support.mixins import LoaderModuleMockMixin
-from tests.support.mock import MagicMock
-from tests.support.unit import TestCase
 
 
 class MockServiceNowClient:
@@ -17,44 +15,46 @@ class MockServiceNowClient:
         return [{"query_size": len(query), "query_value": query}]
 
 
-class ServiceNowModuleTestCase(TestCase, LoaderModuleMockMixin):
-    def setup_loader_modules(self):
-        module_globals = {
-            "Client": MockServiceNowClient,
-            "__salt__": {
-                "config.option": MagicMock(
-                    return_value={
-                        "instance_name": "test",
-                        "username": "mr_test",
-                        "password": "test123",
-                    }
-                )
-            },
-        }
-        if servicenow.HAS_LIBS is False:
-            module_globals["sys.modules"] = {"servicenow_rest": MagicMock()}
-            module_globals["sys.modules"][
-                "servicenow_rest"
-            ].api.Client = MockServiceNowClient
-        return {servicenow: module_globals}
+@pytest.fixture
+def configure_loader_modules():
+    module_globals = {
+        "Client": MockServiceNowClient,
+        "__salt__": {
+            "config.option": MagicMock(
+                return_value={
+                    "instance_name": "test",
+                    "username": "mr_test",
+                    "password": "test123",
+                }
+            )
+        },
+    }
+    if servicenow.HAS_LIBS is False:
+        module_globals["sys.modules"] = {"servicenow_rest": MagicMock()}
+        module_globals["sys.modules"]["servicenow_rest"].api.Client = MockServiceNowClient
+    return {servicenow: module_globals}
 
-    def test_module_creation(self):
-        client = servicenow._get_client()
-        self.assertFalse(client is None)
 
-    def test_non_structured_query(self):
-        result = servicenow.non_structured_query("tests", "role=web")
-        self.assertFalse(result is None)
-        self.assertEqual(result[0]["query_size"], 8)
-        self.assertEqual(result[0]["query_value"], "role=web")
+def test_module_creation(self):
+    client = servicenow._get_client()
+    assert not client is None
 
-    def test_non_structured_query_kwarg(self):
-        result = servicenow.non_structured_query("tests", role="web")
-        self.assertFalse(result is None)
-        self.assertEqual(result[0]["query_size"], 8)
-        self.assertEqual(result[0]["query_value"], "role=web")
 
-    def test_non_structured_query_kwarg_multi(self):
-        result = servicenow.non_structured_query("tests", role="web", type="computer")
-        self.assertFalse(result is None)
-        self.assertEqual(result[0]["query_size"], 22)
+def test_non_structured_query(self):
+    result = servicenow.non_structured_query("tests", "role=web")
+    assert not result is None
+    assert result[0]["query_size"] == 8
+    assert result[0]["query_value"] == "role=web"
+
+
+def test_non_structured_query_kwarg(self):
+    result = servicenow.non_structured_query("tests", role="web")
+    assert not result is None
+    assert result[0]["query_size"] == 8
+    assert result[0]["query_value"] == "role=web"
+
+
+def test_non_structured_query_kwarg_multi(self):
+    result = servicenow.non_structured_query("tests", role="web", type="computer")
+    assert not result is None
+    assert result[0]["query_size"] == 22
