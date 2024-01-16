@@ -1,11 +1,10 @@
 import asyncio
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 import pytest
 import salt.config
 import salt.transport.tcp
-
-from tests.support.mock import MagicMock
-from tests.support.mock import patch
 
 
 @pytest.fixture
