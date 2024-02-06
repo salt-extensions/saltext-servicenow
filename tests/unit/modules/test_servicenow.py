@@ -35,26 +35,26 @@ def configure_loader_modules():
     return {servicenow: module_globals}
 
 
-def test_module_creation(self):
+def test_module_creation():
     client = servicenow._get_client()
     assert not client is None
 
 
-def test_non_structured_query(self):
+def test_non_structured_query():
     result = servicenow.non_structured_query("tests", "role=web")
     assert not result is None
     assert result[0]["query_size"] == 8
     assert result[0]["query_value"] == "role=web"
 
 
-def test_non_structured_query_kwarg(self):
+def test_non_structured_query_kwarg():
     result = servicenow.non_structured_query("tests", role="web")
     assert not result is None
     assert result[0]["query_size"] == 8
     assert result[0]["query_value"] == "role=web"
 
 
-def test_non_structured_query_kwarg_multi(self):
+def test_non_structured_query_kwarg_multi():
     result = servicenow.non_structured_query("tests", role="web", type="computer")
     assert not result is None
     assert result[0]["query_size"] == 22
