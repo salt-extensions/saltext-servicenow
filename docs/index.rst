@@ -16,7 +16,6 @@ Salt Extension for interacting with Servicenow
   :hidden:
 
   ref/modules/index
-  ref/states/index
 
 .. toctree::
   :maxdepth: 2

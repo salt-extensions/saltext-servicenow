@@ -10,4 +10,3 @@ _________________
     :toctree:
 
     servicenow
-    servicenow_mod
