@@ -18,7 +18,6 @@ Module for execution of ServiceNow CI (configuration items)
           username: ''
           password: ''
 """
-
 import logging
 
 HAS_LIBS = False
@@ -112,8 +111,6 @@ def delete_record(table, sys_id):
 def non_structured_query(table, query=None, **kwargs):
     """
     Run a non-structed (not a dict) query on a servicenow table.
-    See http://wiki.servicenow.com/index.php?title=Encoded_Query_Strings#gsc.tab=0
-    for help on constructing a non-structured query string.
 
     :param table: The table name, e.g. sys_user
     :type  table: ``str``
@@ -130,14 +127,11 @@ def non_structured_query(table, query=None, **kwargs):
     """
     client = _get_client()
     client.table = table
-    # underlying lib doesn't use six or past.basestring,
-    # does isinstance(x, str)
-    # http://bit.ly/1VkMmpE
     if query is None:
         # try and assemble a query by keyword
         query_parts = []
         for key, value in kwargs.items():
-            query_parts.append("{}={}".format(key, value))
+            query_parts.append(f"{key}={value}")
         query = "^".join(query_parts)
     query = str(query)
     response = client.get(query)
