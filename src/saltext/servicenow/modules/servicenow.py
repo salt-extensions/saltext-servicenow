@@ -18,6 +18,7 @@ Module for execution of ServiceNow CI (configuration items)
           username: ''
           password: ''
 """
+
 import logging
 
 HAS_LIBS = False
