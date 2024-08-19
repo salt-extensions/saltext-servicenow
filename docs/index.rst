@@ -1,7 +1,7 @@
 ``saltext-servicenow``: Integrate Salt with Servicenow
 ======================================================
 
-Salt Extension for interacting with Servicenow
+Salt Extension for interacting with ServiceNow
 
 .. toctree::
   :maxdepth: 2
