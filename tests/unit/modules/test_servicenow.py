@@ -5,7 +5,8 @@
 from unittest.mock import MagicMock
 
 import pytest
-import salt.modules.servicenow as servicenow
+
+from saltext.servicenow.modules import servicenow
 
 
 class MockServiceNowClient:
@@ -38,24 +39,24 @@ def configure_loader_modules():
 
 def test_module_creation():
     client = servicenow._get_client()
-    assert not client is None
+    assert client is not None
 
 
 def test_non_structured_query():
     result = servicenow.non_structured_query("tests", "role=web")
-    assert not result is None
+    assert result is not None
     assert result[0]["query_size"] == 8
     assert result[0]["query_value"] == "role=web"
 
 
 def test_non_structured_query_kwarg():
     result = servicenow.non_structured_query("tests", role="web")
-    assert not result is None
+    assert result is not None
     assert result[0]["query_size"] == 8
     assert result[0]["query_value"] == "role=web"
 
 
 def test_non_structured_query_kwarg_multi():
     result = servicenow.non_structured_query("tests", role="web", type="computer")
-    assert not result is None
+    assert result is not None
     assert result[0]["query_size"] == 22
