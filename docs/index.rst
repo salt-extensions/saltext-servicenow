@@ -1,4 +1,4 @@
-``saltext-servicenow``: Integrate Salt with Servicenow
+``saltext-servicenow``: Integrate Salt with ServiceNow
 ======================================================
 
 Salt Extension for interacting with ServiceNow
