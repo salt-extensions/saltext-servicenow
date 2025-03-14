@@ -1,8 +1,8 @@
 """
-    tests.pytests.integration.conftest
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests.pytests.integration.conftest
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    PyTest fixtures
+PyTest fixtures
 """
 
 import logging
