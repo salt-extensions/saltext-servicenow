@@ -1,5 +1,5 @@
 """
-    :codeauthor: Anthony Shaw <anthonyshaw@apache.org>
+:codeauthor: Anthony Shaw <anthonyshaw@apache.org>
 """
 
 from unittest.mock import MagicMock
