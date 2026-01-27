@@ -21,13 +21,12 @@ Module for execution of ServiceNow CI (configuration items)
 
 import logging
 
-HAS_LIBS = False
 try:
     from servicenow_rest.api import Client
 
     HAS_LIBS = True
 except ImportError:
-    pass
+    HAS_LIBS = False
 
 log = logging.getLogger(__name__)
 
